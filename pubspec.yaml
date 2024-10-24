@@ -1,0 +1,50 @@
+name: flutter_project
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/poppins_regular.ttf
+        - asset: assets/fonts/poppins_medium.ttf
+          weight: 500
+        - asset: assets/fonts/poppins_bold.ttf
+          weight: 700
+        - asset: assets/fonts/poppins_light.ttf
+          weight: 300
+    - family: ProductSans
+      fonts:
+        - asset: assets/fonts/product_sans_regular.ttf
+        - asset: assets/fonts/product_sans_bold.ttf
+          weight: 700
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/urbanist_regular.ttf
+        - asset: assets/fonts/urbanist_medium.ttf
+          weight: 500
+        - asset: assets/fonts/urbanist_semibold.ttf
+          weight: 600
+        - asset: assets/fonts/urbanist_bold.ttf
+          weight: 700
+    - family: WorkSans
+      fonts:
+        - asset: assets/fonts/worksans_medium.ttf
+          weight: 500
+        - asset: assets/fonts/worksans_semibold.ttf
+          weight: 600
