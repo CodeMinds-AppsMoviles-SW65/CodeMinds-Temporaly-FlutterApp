@@ -11,7 +11,7 @@ class TermsAndConditionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
        
-        const SizedBox(height: 16),
+        const SizedBox(height: 16), // Espacio entre el borde superior y el contenido
 
         // Título
         Text(
@@ -32,7 +32,7 @@ class TermsAndConditionSection extends StatelessWidget {
             color: const Color.fromARGB(255, 255, 255, 255), // Aseguramos que el fondo sea blanco
             borderRadius: BorderRadius.circular(8), // Redondeado más sutil
           ),
-          height: 200, // Ajusta la altura
+          height: 300, // Ajusta la altura
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), // Ajuste de padding
           child: Scrollbar(
             thumbVisibility: true, // Visibilidad del scrollbar
