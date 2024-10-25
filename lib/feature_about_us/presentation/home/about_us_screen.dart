@@ -4,7 +4,7 @@ import 'package:flutter_project/feature_about_us/presentation/components/about_u
 import 'package:flutter_project/feature_about_us/presentation/components/team_profile_section.dart';
 import 'package:flutter_project/feature_about_us/presentation/components/privacy_policy_section.dart';
 import 'package:flutter_project/feature_about_us/presentation/components/terms_and_condition_section.dart';
-
+import 'package:flutter_project/feature_about_us/presentation/components/consent_section.dart';
 class AboutUsScreen extends StatefulWidget {
 const AboutUsScreen({super.key});
 
@@ -47,6 +47,11 @@ class AboutUsScreenState extends State<AboutUsScreen> {
 
             // Sección Privacy Policy
             PrivacyPolicySection(fontFamily: workSansFontFamily),
+            const SizedBox(height: 16),
+            // Sección Consent
+            ConsentSection(
+              fontFamily: workSansFontFamily,
+            ),
           ],
         ),
       ),
