@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_project/core/constants/app_constants.dart';
+import 'package:flutter_project/core/dio/interceptor/dio_request_interceptor.dart';
 
 class Request {
   static final Request _instance = Request._internal();
@@ -19,7 +20,7 @@ class Request {
     dio.options.baseUrl = AppConstants.baseUrl;
     dio.interceptors
       ..add(LogInterceptor())
-      // ..add(AuthenticactionInterceptor())
+      ..add(DioRequestInterceptor())
       ..add(InterceptorsWrapper(
         onError: (DioException error, ErrorInterceptorHandler handler) {
           if (error.response?.statusCode == 400 ||

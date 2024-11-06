@@ -7,8 +7,8 @@ class AppDatabase {
 
   Database? _database;
 
-  Future<void> init() async {
-    _database = await openDatabase(
+  Future<Database> init() async {
+    _database ??= await openDatabase(
       databaseName,
       version: version,
       onCreate: (db, version) {
@@ -20,5 +20,6 @@ class AppDatabase {
         ''');
       },
     );
+    return _database as Database;
   }
 }
