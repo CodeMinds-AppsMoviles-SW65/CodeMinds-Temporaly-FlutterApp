@@ -10,6 +10,7 @@ dependencies:
   dio: ^5.7.0
   flutter:
     sdk: flutter
+  json_annotation: ^4.9.0
   retrofit: ^4.4.1
   sqflite: ^2.4.0
 
