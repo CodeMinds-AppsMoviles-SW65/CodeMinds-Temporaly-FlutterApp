@@ -1,3 +1,4 @@
+import 'package:flutter_project/core/domain/account.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'account_dto.g.dart';
@@ -16,8 +17,14 @@ class AccountDto {
     this.lastNames,
   });
 
-
-  factory AccountDto.fromJson(Map<String, dynamic> json) => _$AccountDtoFromJson(json);
+  factory AccountDto.fromJson(Map<String, dynamic> json) =>
+      _$AccountDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AccountDtoToJson(this);
+}
+
+extension AccountDtoExtension on AccountDto {
+  Account toAccount() {
+    return Account(username: username!, token: "N/A");
+  }
 }
