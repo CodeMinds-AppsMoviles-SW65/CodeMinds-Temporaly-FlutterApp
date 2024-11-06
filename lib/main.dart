@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/core/presentation/temporaly_theme.dart';
-import 'package:flutter_project/feature_about_us/presentation/home/about_us_screen.dart';
+import 'package:flutter_project/feaures/about_us/presentation/home/about_us_screen.dart';
 
 void main() {
   runApp(const MyApp());
