@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/feaures/about_us/data/local/app_database.dart'; // Ensure you import the database
 
 class ConsentSection extends StatefulWidget {
   final String fontFamily;
@@ -14,35 +15,37 @@ class ConsentSectionState extends State<ConsentSection> {
   bool termsAccepted = false;
   bool privacyPolicyAccepted = false;
 
+  final AppDatabase _db = AppDatabase(); // Instance of AppDatabase
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center, 
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(height: 16),
 
-        // Título
+        // Title
         Text(
           "Consent to Data Processing",
           style: TextStyle(
             fontFamily: widget.fontFamily,
-            fontWeight: FontWeight.w600, 
+            fontWeight: FontWeight.w600,
             fontSize: 20,
-            color: Colors.black, 
+            color: Colors.black,
           ),
         ),
         const SizedBox(height: 8),
 
-        // Caja con scroll
+        // Scrollable Box
         Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255), 
-            borderRadius: BorderRadius.circular(8), 
+            color: const Color.fromARGB(255, 255, 255, 255),
+            borderRadius: BorderRadius.circular(8),
           ),
-          height: 250, 
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), // Padding
+          height: 250,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Scrollbar(
-            thumbVisibility: true, 
+            thumbVisibility: true,
             thickness: 4,
             radius: const Radius.circular(8),
             child: SingleChildScrollView(
@@ -50,9 +53,9 @@ class ConsentSectionState extends State<ConsentSection> {
                 consentText(),
                 style: TextStyle(
                   fontFamily: widget.fontFamily,
-                  fontWeight: FontWeight.w500,  
+                  fontWeight: FontWeight.w500,
                   fontSize: 16,
-                  color: Colors.black87, 
+                  color: Colors.black87,
                 ),
                 textAlign: TextAlign.justify,
               ),
@@ -62,16 +65,16 @@ class ConsentSectionState extends State<ConsentSection> {
 
         const SizedBox(height: 16),
 
-        // Casillas de verificación de Términos y Condiciones y Política de Privacidad
+        // Terms and Conditions Checkbox
         Row(
-          mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
               value: termsAccepted,
               checkColor: Colors.white,
-              activeColor: const Color(0xFF2979FF), 
+              activeColor: const Color(0xFF2979FF),
               onChanged: consentAccepted
-                  ? null 
+                  ? null
                   : (bool? value) {
                       setState(() {
                         termsAccepted = value ?? false;
@@ -91,22 +94,23 @@ class ConsentSectionState extends State<ConsentSection> {
                 style: TextStyle(
                   fontFamily: widget.fontFamily,
                   fontSize: 16,
-                  color: termsAccepted ? Colors.black : Colors.grey, 
+                  color: termsAccepted ? Colors.black : Colors.grey,
                 ),
               ),
             ),
           ],
         ),
 
+        // Privacy Policy Checkbox
         Row(
-          mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
               value: privacyPolicyAccepted,
               checkColor: Colors.white,
-              activeColor: const Color(0xFF2979FF), 
+              activeColor: const Color(0xFF2979FF),
               onChanged: consentAccepted
-                  ? null 
+                  ? null
                   : (bool? value) {
                       setState(() {
                         privacyPolicyAccepted = value ?? false;
@@ -126,7 +130,7 @@ class ConsentSectionState extends State<ConsentSection> {
                 style: TextStyle(
                   fontFamily: widget.fontFamily,
                   fontSize: 16,
-                  color: privacyPolicyAccepted ? Colors.black : Colors.grey, 
+                  color: privacyPolicyAccepted ? Colors.black : Colors.grey,
                 ),
               ),
             ),
@@ -135,21 +139,34 @@ class ConsentSectionState extends State<ConsentSection> {
 
         const SizedBox(height: 16),
 
+        // Accept and Decline Buttons
         if (!consentAccepted)
           Row(
-            mainAxisAlignment: MainAxisAlignment.center, 
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                 onPressed: termsAccepted && privacyPolicyAccepted
-                    ? () {
+                    ? () async {
                         setState(() {
                           consentAccepted = true;
                         });
+
+                        // Save to the database
+                        final id = "user_${DateTime.now().millisecondsSinceEpoch}"; // Unique ID
+                        final acceptedDate = DateTime.now();
+
+                        await _db.insertConsent(id, true, acceptedDate);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Consent saved to database.'),
+                          ),
+                        );
                       }
-                    : null, 
+                    : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2979FF), 
-                  foregroundColor: Colors.white, 
+                  backgroundColor: const Color(0xFF2979FF),
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -163,7 +180,7 @@ class ConsentSectionState extends State<ConsentSection> {
                   ),
                 ),
               ),
-              const SizedBox(width: 16), 
+              const SizedBox(width: 16),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -173,10 +190,10 @@ class ConsentSectionState extends State<ConsentSection> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey, 
-                  foregroundColor: Colors.white, 
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), 
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
@@ -191,7 +208,7 @@ class ConsentSectionState extends State<ConsentSection> {
             ],
           ),
 
-        
+        // Display confirmation
         if (consentAccepted)
           const Padding(
             padding: EdgeInsets.only(top: 16),
@@ -199,7 +216,7 @@ class ConsentSectionState extends State<ConsentSection> {
               "Consent accepted",
               style: TextStyle(
                 fontSize: 16,
-                color:  Color(0xFF2979FF), 
+                color: Color(0xFF2979FF),
                 fontWeight: FontWeight.bold,
               ),
             ),
