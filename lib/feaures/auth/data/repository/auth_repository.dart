@@ -24,7 +24,7 @@ class AuthRepository {
         password: password,
       ));
       return response.data;
-    } catch (e) {
+    }  catch (e) {
       return null;
     }
   }

@@ -6,18 +6,23 @@ class TemporalyTheme extends StatelessWidget {
   const TemporalyTheme({super.key, required this.child});
 
   static const ColorScheme lightColorScheme = ColorScheme.light(
-      primary: Color(0xff000000),
-      secondary: Color(0xff888888),
-      tertiary: Color(0xffcccccc),
-      surface: Color(0xff2979ff),
-      onSurface: Color(0xffffffff));
-
-  static const ColorScheme darkColorScheme = ColorScheme.dark(
-    primary: Color(0xffffffff),
+    primary: Color(0xff2979ff),
     secondary: Color(0xff888888),
     tertiary: Color(0xffcccccc),
-    surface: Color(0xff2979ff),
+    surface: Color(0xffffffff),
     onSurface: Color(0xff000000),
+    background: Color(0xffffffff),
+    onBackground: Color(0xff000000),
+  );
+
+  static const ColorScheme darkColorScheme = ColorScheme.dark(
+    primary: Color(0xff2979ff),
+    secondary: Color(0xff888888),
+    tertiary: Color(0xffa17d7d),
+    surface: Color(0xff121212),
+    onSurface: Color(0xffffffff),
+    background: Color(0xff121212),
+    onBackground: Color(0xffffffff),
   );
 
   static const TextTheme textTheme = TextTheme(
@@ -112,6 +117,26 @@ class TemporalyTheme extends StatelessWidget {
       data: ThemeData(
         colorScheme: colorScheme,
         textTheme: textTheme,
+        appBarTheme: AppBarTheme(
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorScheme.surface,
+            foregroundColor: colorScheme.onSurface,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: colorScheme.surface.withOpacity(0.1),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: BorderSide(
+              color: colorScheme.onSurface.withOpacity(0.5),
+            ),
+          ),
+        ),
       ),
       child: child,
     );
