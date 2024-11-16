@@ -157,10 +157,18 @@ class ConsentSectionState extends State<ConsentSection> {
 
                         await _db.insertConsent(id, true, acceptedDate);
 
+                        if(!context.mounted) return;
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Consent saved to database.'),
+                          SnackBar(
+                            content: Text('Consent saved to database.', 
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: widget.fontFamily,
+                              fontWeight: FontWeight.w600
+                            ),
                           ),
+                          backgroundColor: const Color(0xFF2979FF),                          ),
                         );
                       }
                     : null,

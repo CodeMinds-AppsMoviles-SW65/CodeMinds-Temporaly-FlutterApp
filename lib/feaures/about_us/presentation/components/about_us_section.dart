@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AboutUsSection extends StatelessWidget {
   final String fontFamily;
-
+  
   const AboutUsSection({super.key, required this.fontFamily});
 
   @override
@@ -28,6 +28,9 @@ class AboutUsSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),  // Bordes redondeados
           child: Image.network(
             'https://i.ibb.co/mvLhy4h/about-us.jpg',
+            errorBuilder: (context, error, stackTrace) {
+              return const Text('Error al cargar la imagen');
+            },
             width: double.infinity,  // Ancho completo
             height: 200,  // Altura de la imagen
             fit: BoxFit.cover,  // Ajusta la imagen sin distorsionar

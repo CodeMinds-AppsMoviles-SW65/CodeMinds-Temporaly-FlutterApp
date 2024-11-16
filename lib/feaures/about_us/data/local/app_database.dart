@@ -1,10 +1,12 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:logger/logger.dart';
 
 class AppDatabase {
   static const String _databaseName = 'about_us.db';
   static const String _tableName = 'consents';
   static const int _databaseVersion = 1;
+  final Logger logger = Logger();
 
   Database? _database;
 
@@ -56,6 +58,9 @@ class AppDatabase {
 
   Future<List<Map<String, dynamic>>> getAllConsents() async {
     final db = await openDb();
-    return await db.query(_tableName);
+    final result = await db.query(_tableName);
+    logger.i('Datos en la base de datos: $result');
+    return result;
   }
+
 }
