@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/data/local/app_database.dart';
+import 'package:flutter_project/feaures/auth/presentation/blocs/register/register_bloc.dart';
+import 'package:flutter_project/feaures/auth/presentation/pages/register_page.dart';
 import 'package:toastification/toastification.dart';
-import 'core/presentation/temporaly_theme.dart'; // Ajusta el path según tu estructura
-import 'feaures/about_us/presentation/home/about_us_screen.dart'; // Ajusta el path
-import 'feaures/auth/presentation/blocs/login/login_bloc.dart'; // Ajusta el path
-import 'feaures/auth/presentation/pages/login_page.dart'; // Ajusta el path
+import 'core/presentation/temporaly_theme.dart'; 
+import 'feaures/auth/presentation/blocs/login/login_bloc.dart'; 
+import 'feaures/auth/presentation/pages/login_page.dart'; 
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized(); 
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(),
+    return BlocProvider<RegisterBloc>(
+      create: (context) => RegisterBloc(),
       child: ToastificationWrapper(
         child: TemporalyTheme(
           child: MaterialApp(
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
               textTheme: TemporalyTheme.textTheme,
             ),
             themeMode: ThemeMode.system,
-            home: const LoginPage(),
+            home: const RegisterPage(),
           ),
         ),
       ),

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/presentation/dimens.dart';
-import 'package:flutter_project/feaures/auth/presentation/blocs/login/login_bloc.dart';
+import 'package:flutter_project/feaures/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toastification/toastification.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -27,9 +29,22 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocConsumer<LoginBloc, LoginState>(
-          builder: (BuildContext context, LoginState state) {
-            if (state is LoginLoading) {
+        child: BlocConsumer<RegisterBloc, RegisterState>(
+          listener: (BuildContext context, RegisterState state) {
+            if (state is RegisterSuccess) {
+              Navigator.of(context).pop();
+            } else if (state is RegisterFailure) {
+                toastification.show(
+                type: ToastificationType.error,
+                description: const Text("Complete all field with valid data"),
+                autoCloseDuration: const Duration(seconds: 4),
+                applyBlurEffect: true,
+                alignment: Alignment.bottomCenter,
+              );
+            }
+          },
+          builder: (BuildContext context, RegisterState state) {
+            if (state is RegisterLoading) {
               return const Center(child: CircularProgressIndicator());
             }
             return SingleChildScrollView(
@@ -39,15 +54,28 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const SizedBox(height: Dimens.spacerLarge),
                   Text(
-                    'Sign In',
+                    'Sign Up',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: Dimens.spacerNormal),
                   Text(
-                    'Welcome to Temporaly, please put your login credentials below to start using the app.',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    'Please enter your details below to create your account and start enjoying the app.',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                   const SizedBox(height: Dimens.spacerMedium),
+                  TextField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.circular(Dimens.roundedShapeNormal),
+                      ),
+                    ),
+                  ),
+                     const SizedBox(height: Dimens.spacerNormal),
                   TextField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -59,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  
                   const SizedBox(height: Dimens.spacerNormal),
                   TextField(
                     controller: passwordController,
@@ -72,28 +101,23 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text('Forgot Password?'),
-                    ),
-                  ),
                   const SizedBox(height: Dimens.spacerNormal),
                   ElevatedButton(
                     onPressed: () {
+                      final username = usernameController.text.trim();
                       final email = emailController.text.trim();
                       final password = passwordController.text.trim();
                       FocusScope.of(context).unfocus();
                       context
-                          .read<LoginBloc>()
-                          .add(LoginStarted(email, password));
+                          .read<RegisterBloc>()
+                          .add(RegisterStarted(username, email, password));
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(
                           double.infinity, Dimens.buttonHeightNormal),
                     ),
-                    child: const Text('Sign In'),
+                    child: const Text('Sign Up',
+                        ),
                   ),
                   const SizedBox(height: Dimens.spacerNormal),
                   Row(
@@ -139,29 +163,22 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Don’t have an account?',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        'Already have an account?',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text('Register now'),
+                        child: Text('Login now',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
             );
-          },
-          listener: (BuildContext context, LoginState state) {
-            if (state is LoginFailure) {
-              toastification.show(
-                type: ToastificationType.error,
-                description: const Text("Check your credentials"),
-                autoCloseDuration: const Duration(seconds: 4),
-                applyBlurEffect: true,
-                alignment: Alignment.bottomCenter,
-              );
-            }
           },
         ),
       ),
