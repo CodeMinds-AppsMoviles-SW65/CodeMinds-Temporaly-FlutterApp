@@ -32,7 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
         child: BlocConsumer<RegisterBloc, RegisterState>(
           listener: (BuildContext context, RegisterState state) {
             if (state is RegisterSuccess) {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); 
+
+              // Se supone que en el pop esta la pantalla de login
             } else if (state is RegisterFailure) {
                 toastification.show(
                 type: ToastificationType.error,
