@@ -33,7 +33,6 @@ class _RegisterPageState extends State<RegisterPage> {
           listener: (BuildContext context, RegisterState state) {
             if (state is RegisterSuccess) {
               Navigator.of(context).pop(); 
-
               // Se supone que en el pop esta la pantalla de login
             } else if (state is RegisterFailure) {
                 toastification.show(
