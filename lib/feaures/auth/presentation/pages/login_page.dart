@@ -32,12 +32,12 @@ class _LoginPageState extends State<LoginPage> {
             if (state is LoginLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return Padding(
+            return SingleChildScrollView(
               padding: const EdgeInsets.all(Dimens.paddingMedium),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Spacer(flex: 2),
+                  const SizedBox(height: Dimens.spacerLarge),
                   Text(
                     'Sign In',
                     style: Theme.of(context).textTheme.headlineLarge,
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  const Spacer(flex: 3),
+                  const SizedBox(height: Dimens.spacerLarge),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             if (state is LoginFailure) {
               toastification.show(
                 type: ToastificationType.error,
-                description: Text("Check your credentials"),
+                description: const Text("Check your credentials"),
                 autoCloseDuration: const Duration(seconds: 4),
                 applyBlurEffect: true,
                 alignment: Alignment.bottomCenter,
