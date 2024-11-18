@@ -9,7 +9,7 @@ A new Flutter project.
 `
 flutter pub run build_runner build --delete-conflicting-outputs
 `
-olaolaolaol
+
 
 -- For routes
 https://pub.dev/packages/go_router
