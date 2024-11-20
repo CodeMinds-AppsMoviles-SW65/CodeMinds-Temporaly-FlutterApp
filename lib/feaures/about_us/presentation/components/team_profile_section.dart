@@ -15,6 +15,9 @@ class TeamProfileSection extends StatelessWidget {
           width: 100,
           height: 100,
           fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return const Text('Error cargando imagen');
+          },
         ),
       ),
     );
@@ -65,7 +68,7 @@ class TeamProfileSection extends StatelessWidget {
             fontWeight: FontWeight.w500,  // Medium es w500
             fontSize: 16,
           ),
-          textAlign: TextAlign.justify,  // Justificación del texto
+          textAlign: TextAlign.justify,
         ),
       ],
     );
