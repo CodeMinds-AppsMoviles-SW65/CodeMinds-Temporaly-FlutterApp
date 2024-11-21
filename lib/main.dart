@@ -6,6 +6,7 @@ import 'package:flutter_project/feaures/auth/presentation/pages/register_page.da
 import 'package:toastification/toastification.dart';
 import 'core/presentation/temporaly_theme.dart'; 
 
+
 void main() async {
    WidgetsFlutterBinding.ensureInitialized(); 
   await AppDatabase().init();
