@@ -11,8 +11,6 @@ class TemporalyTheme extends StatelessWidget {
     tertiary: Color(0xffcccccc),
     surface: Color(0xffffffff),
     onSurface: Color(0xff000000),
-    background: Color(0xffffffff),
-    onBackground: Color(0xff000000),
   );
 
   static const ColorScheme darkColorScheme = ColorScheme.dark(
@@ -21,8 +19,6 @@ class TemporalyTheme extends StatelessWidget {
     tertiary: Color(0xffa17d7d),
     surface: Color(0xff121212),
     onSurface: Color(0xffffffff),
-    background: Color(0xff121212),
-    onBackground: Color(0xffffffff),
   );
 
   static const TextTheme textTheme = TextTheme(

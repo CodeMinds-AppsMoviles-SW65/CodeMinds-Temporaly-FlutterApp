@@ -1,10 +1,12 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:logger/logger.dart';
 
 class AppDatabase {
   final int version = 1;
   final String databaseName = "temporaly.db";
   final String tableName = "accounts";
+  final Logger logger = Logger();
 
   Database? _database;
 
@@ -13,7 +15,7 @@ class AppDatabase {
       join(await getDatabasesPath(), databaseName),
       version: version,
       onCreate: (db, version) {
-        print("Creating table $tableName...");
+        logger.i("Creating table $tableName...");
         db.execute('''
           CREATE TABLE $tableName(
             id TEXT PRIMARY KEY,

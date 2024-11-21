@@ -17,7 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) async {
       emit(LoginLoading());
       SignInResponseDto? response = await AuthRepository().signIn(
-          (event as LoginStarted).email, (event as LoginStarted).password);
+          (event as LoginStarted).email, (event).password);
       if (response != null) {
         emit(LoginSuccess(response));
         logger.i('Login success');

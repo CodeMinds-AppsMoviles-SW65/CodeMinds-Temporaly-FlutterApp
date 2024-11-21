@@ -5,8 +5,6 @@ import 'package:flutter_project/feaures/auth/presentation/blocs/register/registe
 import 'package:flutter_project/feaures/auth/presentation/pages/register_page.dart';
 import 'package:toastification/toastification.dart';
 import 'core/presentation/temporaly_theme.dart'; 
-import 'feaures/auth/presentation/blocs/login/login_bloc.dart'; 
-import 'feaures/auth/presentation/pages/login_page.dart'; 
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized(); 
